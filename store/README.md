@@ -12,7 +12,7 @@
 | [listing-firefox-en.md](listing-firefox-en.md), [listing-firefox-ru.md](listing-firefox-ru.md) и `listing-firefox-de/es/fr/pt_BR/uk/zh_CN.md` | Витрина Firefox Add-ons, те же языки |
 | [privacy-practices.md](privacy-practices.md) | Single purpose, justification `tabs`, remote code, сбор данных |
 | [distribution.md](distribution.md) | Public / Free / регионы / test instructions |
-| [privacy-policy.html](privacy-policy.html) | Страница политики на всех языках пакета (якоря `#en`, `#ru`, `#de`, …) |
+| [privacy-policy.html](privacy-policy.html) | Страница политики: один язык на экран, адреса `#en`, `#ru`, `#de`, … |
 | [privacy-policy-en.md](privacy-policy-en.md), [privacy-policy-ru.md](privacy-policy-ru.md) и `privacy-policy-de/es/fr/pt_BR/uk/zh_CN.md` | Тот же текст политики по файлу на язык. На сайт попадает `privacy-policy.html` |
 | [how-to-add-locale.md](how-to-add-locale.md) | Как добавить ещё один язык |
 | [PUBLISH-firefox.md](PUBLISH-firefox.md) | Публикация на Firefox Add-ons |

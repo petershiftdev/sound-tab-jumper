@@ -58,6 +58,8 @@ Chrome (`01/`) uses a service worker. Firefox (`firefox/`) uses a non-persistent
 | `store/how-to-add-locale.md` | Adding another locale. Keep `default_locale` `en`. Update **both** packages. |
 | `PROJECT.md`, `PROJECT-ru.md` | Identity/store facts. Same facts, two languages. **Not in either ZIP.** |
 | `.cursor/rules/` | Agent rules. **Not in either ZIP.** |
+| `promo/` | Chrome Web Store small promo tile (440×280). **Not in either ZIP.** |
+| `promo/video/footage.md` | Free stock-footage links for the three promo videos. **Not in either ZIP.** |
 | `sites/` | Optional sandbox for many audible tabs at once. **Not the product, not in either ZIP.** Touch only if the user asks. |
 
 ## Task → open these
@@ -68,11 +70,12 @@ Chrome (`01/`) uses a service worker. Firefox (`firefox/`) uses a non-persistent
 | Jump / cycle / shortcut / toolbar click (Firefox) | `firefox/background.js`, then `firefox/manifest.json` `commands` |
 | Name, tooltip, short description, locale | both `01/_locales/*/messages.json` and `firefox/_locales/*/messages.json`, then both `PROJECT*.md`, then listing files if store copy |
 | Permissions / privacy claims | both manifests, `store/privacy-practices.md`, Firefox `data_collection_permissions` in `firefox/manifest.json` |
-| Pack Chrome ZIP / load unpacked | `store/PUBLISH.md` (PowerShell `tar` from `01/`). Never pack `store/`, `sites/`, `Instructions/`, `PROJECT*.md`, `.cursor/`, `firefox/` |
-| Pack Firefox ZIP / temporary load | `store/PUBLISH-firefox.md` (PowerShell `tar` from `firefox/`). Never pack `store/`, `sites/`, `Instructions/`, `PROJECT*.md`, `.cursor/`, `01/` |
+| Pack Chrome ZIP / load unpacked | `store/PUBLISH.md` (PowerShell `tar` from `01/`). Never pack `store/`, `sites/`, `Instructions/`, `promo/`, `PROJECT*.md`, `.cursor/`, `firefox/` |
+| Pack Firefox ZIP / temporary load | `store/PUBLISH-firefox.md` (PowerShell `tar` from `firefox/`). Never pack `store/`, `sites/`, `Instructions/`, `promo/`, `PROJECT*.md`, `.cursor/`, `01/` |
 | Fill dashboard after ZIP upload | `Instructions/chrome-web-store-after-zip.md` (Chrome); `store/PUBLISH-firefox.md` (AMO) |
 | Host privacy policy on GitHub Pages | `Instructions/github-pages-privacy-policy.md`, workflow `.github/workflows/pages.yml` |
 | Icons | `01/icons/`, `store/render_icons.py`, then copy into `firefox/icons/` |
+| Promo video stock footage | `promo/video/footage.md` |
 | New language | `store/how-to-add-locale.md` |
 | Multi-tab sound sandbox | `sites/` — **only when the user asks to use it** |
 
@@ -127,7 +130,7 @@ On a **new** cycle from the current tab:
 
 **Firefox is desktop-only until Android is asked for.** Omitting `gecko_android` keeps the listing off Firefox for Android. Toolbar + multi-window focus is a desktop product; do not add Android compatibility without checking that surface.
 
-**Privacy policy is hosted on GitHub Pages, not inside the ZIP.** The store requires a public HTTPS URL. `store/privacy-policy.html` is the source; `.github/workflows/pages.yml` publishes that file alone. The live URL is in `PROJECT.md`. The same URL covers Chrome and Firefox, with a language switcher on the page.
+**Privacy policy is hosted on GitHub Pages, not inside the ZIP.** The store requires a public HTTPS URL. `store/privacy-policy.html` is the source; `.github/workflows/pages.yml` publishes that file alone. The live URL is in `PROJECT.md`. The same URL covers Chrome and Firefox. The page shows one language at a time: the bare URL follows the browser language, and `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#uk`, `#zh_CN` are the per-language addresses. The switcher on the page changes that address.
 
 **Free, public, all regions, non-trader.** Personal free utility, not a commercial listing. Trader status is an account setting; do not switch it unless the user says the project became a business.
 

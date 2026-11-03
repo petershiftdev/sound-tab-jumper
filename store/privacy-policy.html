@@ -19,7 +19,11 @@
     table { border-collapse: collapse; width: 100%; }
     th, td { border: 1px solid currentColor; padding: 0.4rem 0.6rem; text-align: left; }
     hr { margin: 3rem 0; }
+    nav a[aria-current="page"] { font-weight: 700; color: inherit; text-decoration: none; }
+    html.js article, html.js hr { display: none; }
+    html.js article.is-active { display: block; }
   </style>
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
   <nav>
@@ -325,7 +329,7 @@
 
   <hr>
 
-  <article id="pt_BR" lang="pt-BR">
+  <article id="pt_BR" lang="pt-BR" data-langs="pt pt-BR">
     <h1>Política de privacidade — Encontrar a aba com som</h1>
     <p><strong>Última atualização:</strong> 20 de setembro de 2026</p>
     <p>Esta política descreve como as extensões para Chrome e Firefox <strong>Encontrar a aba com som</strong> (Find Tab Playing Sound, “a Extensão”) tratam informações.</p>
@@ -439,7 +443,7 @@
 
   <hr>
 
-  <article id="zh_CN" lang="zh-CN">
+  <article id="zh_CN" lang="zh-CN" data-langs="zh zh-CN zh-Hans">
     <h1>隐私政策 — 查找正在播放声音的标签页</h1>
     <p><strong>更新日期：</strong>2026年9月20日</p>
     <p>本政策说明 Chrome 与 Firefox 扩展 <strong>「查找正在播放声音的标签页」</strong>（Find Tab Playing Sound，下称「本扩展」）如何处理信息。</p>
@@ -493,5 +497,73 @@
     <h2>联系方式</h2>
     <p>有关本政策的问题：<strong>petershift.dev@gmail.com</strong></p>
   </article>
+  <script>
+    function policyArticles() {
+      return Array.prototype.slice.call(document.querySelectorAll("article[id]"));
+    }
+
+    function matchLanguage(tag) {
+      var norm = String(tag || "").toLowerCase().replace(/_/g, "-");
+      if (!norm) return null;
+      var base = norm.split("-")[0];
+      var baseHit = null;
+      var articles = policyArticles();
+      for (var i = 0; i < articles.length; i++) {
+        var article = articles[i];
+        var raw = [article.id, article.lang].concat((article.getAttribute("data-langs") || "").split(/\s+/));
+        var keys = {};
+        for (var j = 0; j < raw.length; j++) {
+          if (!raw[j]) continue;
+          keys[raw[j].toLowerCase().replace(/_/g, "-")] = true;
+        }
+        if (keys[norm]) return article.id;
+        if (!baseHit && keys[base]) baseHit = article.id;
+      }
+      return baseHit;
+    }
+
+    function preferredLanguage() {
+      var list = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || "en"];
+      for (var i = 0; i < list.length; i++) {
+        var hit = matchLanguage(list[i]);
+        if (hit) return hit;
+      }
+      return "en";
+    }
+
+    function languageFromHash() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var article = id ? document.getElementById(id) : null;
+      return article && article.tagName === "ARTICLE" ? id : null;
+    }
+
+    function showLanguage(id) {
+      var articles = policyArticles();
+      for (var i = 0; i < articles.length; i++) {
+        articles[i].classList.toggle("is-active", articles[i].id === id);
+      }
+      var links = document.querySelectorAll("nav a");
+      for (var j = 0; j < links.length; j++) {
+        if (links[j].getAttribute("href") === "#" + id) links[j].setAttribute("aria-current", "page");
+        else links[j].removeAttribute("aria-current");
+      }
+      var current = document.getElementById(id);
+      document.documentElement.lang = (current && current.lang) || id;
+      var heading = current && current.querySelector("h1");
+      if (heading) document.title = heading.textContent.trim();
+      window.scrollTo(0, 0);
+    }
+
+    function syncLanguage() {
+      var id = languageFromHash() || preferredLanguage();
+      showLanguage(id);
+      if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+    }
+
+    window.addEventListener("hashchange", syncLanguage);
+    syncLanguage();
+  </script>
 </body>
 </html>

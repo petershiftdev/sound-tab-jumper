@@ -31,7 +31,7 @@
 
 1. Скопируйте `store/listing-en.md` → `store/listing-[код].md` и `store/listing-firefox-en.md` → `store/listing-firefox-[код].md`. Переведите блоки в тройных кавычках. Пояснения вокруг блоков можно оставить по-русски.
 2. Скриншоты с текстом на картинке сделайте отдельно для этого языка (1280×800). Файлы в `screenshots/` без врезанных подписей расширения подходят для всех языков.
-3. Политику конфиденциальности: добавьте секцию в `store/privacy-policy.html` (якорь `#de`, `#uk` и т.д.) и файл `store/privacy-policy-[код].md`. Ссылку на новый язык добавьте в `<nav>`. URL в дашборде один на все языки. После пуша в `main` GitHub Pages обновит ту же страницу ([инструкция](../Instructions/github-pages-privacy-policy.md)). Обновите список локалей в `PROJECT.md` и `PROJECT-ru.md`.
+3. Политику конфиденциальности: добавьте секцию в `store/privacy-policy.html` (`<article id="ja" lang="ja">`) и файл `store/privacy-policy-[код].md`. Ссылку на новый язык добавьте в `<nav>` с `href="#ja"`. Если код статьи не совпадает с языком браузера (как `pt_BR` и `zh_CN`), укажите варианты в `data-langs`. Страница показывает один язык; общий URL в дашборде не меняется. После пуша в `main` GitHub Pages обновит ту же страницу ([инструкция](../Instructions/github-pages-privacy-policy.md)). Обновите список локалей и якоря в `PROJECT.md` и `PROJECT-ru.md`.
 
 ## 4. Проверка
 
