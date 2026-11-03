@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Знайти вкладку зі звуком",
+    "description": "The extension name shown in Chrome and the Web Store."
+  },
+  "extensionDescription": {
+    "message": "Знаходить вкладку, яка зараз відтворює звук, і одразу перемикає на неї. Клік або комбінація гортає такі вкладки.",
+    "description": "Short description. Chrome limit: 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "Перейти до вкладки зі звуком",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Перейти до наступної вкладки зі звуком",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  }
+}

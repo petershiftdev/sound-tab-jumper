@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Tab mit Ton finden",
+    "description": "The extension name shown in Firefox and on addons.mozilla.org."
+  },
+  "extensionDescription": {
+    "message": "Findet den Tab, der gerade Ton wiedergibt, und wechselt dorthin. Klick oder Tastenkürzel schaltet zwischen Ton-Tabs um.",
+    "description": "Short description. Keep at or under 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "Zum Tab mit Ton wechseln",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Zum nächsten Tab mit Ton wechseln",
+    "description": "Keyboard shortcut description in about:addons Manage Extension Shortcuts."
+  }
+}

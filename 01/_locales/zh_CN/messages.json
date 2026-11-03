@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "查找正在播放声音的标签页",
+    "description": "The extension name shown in Chrome and the Web Store."
+  },
+  "extensionDescription": {
+    "message": "查找正在播放音频的标签页并切换过去。点击图标或按快捷键，可在有声音的标签页之间循环。",
+    "description": "Short description. Chrome limit: 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "转到正在播放声音的标签页",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "转到下一个正在播放声音的标签页",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  }
+}

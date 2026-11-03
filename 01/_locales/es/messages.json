@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Encontrar la pestaña con sonido",
+    "description": "The extension name shown in Chrome and the Web Store."
+  },
+  "extensionDescription": {
+    "message": "Encuentra la pestaña que reproduce audio y cambia a ella. Clic o atajo para recorrer las pestañas con sonido.",
+    "description": "Short description. Chrome limit: 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "Ir a la pestaña con sonido",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Ir a la siguiente pestaña con sonido",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  }
+}

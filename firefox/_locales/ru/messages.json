@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Найти вкладку со звуком",
+    "description": "Название расширения в Firefox и на addons.mozilla.org."
+  },
+  "extensionDescription": {
+    "message": "Находит вкладку, которая сейчас играет звук, и сразу переключает на неё.",
+    "description": "Краткое описание. Держите в пределах 132 символов."
+  },
+  "actionDefaultTitle": {
+    "message": "Перейти к вкладке со звуком",
+    "description": "Подсказка на кнопке панели инструментов."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Перейти к следующей вкладке со звуком",
+    "description": "Описание горячей клавиши в about:addons — Управление сочетаниями клавиш."
+  }
+}

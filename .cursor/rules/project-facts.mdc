@@ -1,0 +1,16 @@
+---
+description: Keep PROJECT.md and PROJECT-ru.md in sync as the source of truth
+alwaysApply: true
+---
+
+# Project facts files
+
+`PROJECT.md` (English) and `PROJECT-ru.md` (Russian) at the repo root are the source of truth for publisher identity, product names, descriptions, version, URLs, and store settings.
+
+- For **codebase orientation** (where files live, how jump/cycle works), use `.cursor/rules/agent-orientation.mdc` first. These PROJECT files are identity/store facts only — not a repo map.
+- Read them when answering questions about names, contact, version, listing, shortcut, or publish status. Prefer `PROJECT-ru.md` when the user writes in Russian.
+- When any of those facts change (name, email, version, locales, shortcut, listing copy, privacy URL, ZIP name, graphics folders, publish status), update **both** files in the same turn. Same facts, two languages — do not let them drift.
+- If an identity field changes, also update every copy: `01/_locales/**`, `firefox/_locales/**`, `01/manifest.json` / `firefox/manifest.json` when needed, `store/listing-*.md`, `store/privacy-policy.html`, `store/privacy-policy-*.md`, `store/privacy-practices.md`.
+- Publisher display name is `PeterShift`. Do not invent a different one unless the user changes it.
+- Public contact email is `petershift.dev@gmail.com` unless the user changes it. It is meant to appear on the store listing and the hosted privacy policy.
+- Do not put these files inside a store ZIP. The Chrome ZIP is only the contents of `01/`. The Firefox ZIP is only the contents of `firefox/`.

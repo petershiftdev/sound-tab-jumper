@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Найти вкладку со звуком",
+    "description": "Название расширения в Chrome и в интернет-магазине."
+  },
+  "extensionDescription": {
+    "message": "Находит вкладку, которая сейчас играет звук, и сразу переключает на неё.",
+    "description": "Краткое описание. Лимит Chrome: 132 символа."
+  },
+  "actionDefaultTitle": {
+    "message": "Перейти к вкладке со звуком",
+    "description": "Подсказка на кнопке панели инструментов."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Перейти к следующей вкладке со звуком",
+    "description": "Описание горячей клавиши на chrome://extensions/shortcuts."
+  }
+}

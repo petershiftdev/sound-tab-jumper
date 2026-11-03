@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Trouver l'onglet avec du son",
+    "description": "The extension name shown in Firefox and on addons.mozilla.org."
+  },
+  "extensionDescription": {
+    "message": "Trouve l'onglet qui lit du son et y bascule. Un clic ou un raccourci parcourt les onglets avec du son.",
+    "description": "Short description. Keep at or under 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "Aller à l'onglet avec du son",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Aller à l'onglet suivant avec du son",
+    "description": "Keyboard shortcut description in about:addons Manage Extension Shortcuts."
+  }
+}

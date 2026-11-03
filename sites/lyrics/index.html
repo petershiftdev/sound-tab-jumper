@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lyrics</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f3eee4'/%3E%3Cpath d='M8 11h16M8 16h12M8 21h9' stroke='%232a2520' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #e9e1d4;
+      --paper: #f7f1e6;
+      --ink: #241e1a;
+      --muted: #8a7e70;
+      --line: rgba(36, 30, 26, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: Newsreader, Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(ellipse at 50% 0%, #f4eee4, var(--bg));
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      padding: 3rem 1.25rem;
+    }
+    main {
+      width: min(38rem, 100%);
+      display: grid;
+      gap: 1.4rem;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      font-style: italic;
+    }
+    .sheet {
+      background: var(--paper);
+      border-radius: 2px;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.7) inset,
+        0 18px 50px rgba(70, 50, 30, 0.12);
+      padding: 2.4rem 2.2rem 2rem;
+    }
+    textarea {
+      width: 100%;
+      min-height: 26rem;
+      border: 0;
+      resize: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 1.85rem,
+          var(--line) 1.85rem,
+          var(--line) 1.87rem
+        );
+      background-attachment: local;
+      color: var(--ink);
+      font: 400 1.28rem/1.87 Newsreader, Georgia, serif;
+      caret-color: var(--ink);
+      outline: none;
+    }
+    textarea::placeholder {
+      color: var(--muted);
+      font-style: italic;
+    }
+    .hint {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-style: italic;
+      transition: opacity 0.35s ease;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="kicker">Draft</p>
+      <h1>Lyrics</h1>
+    </header>
+    <div class="sheet">
+      <textarea id="field" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+    </div>
+    <p class="hint" id="hint">Press any key to keep writing.</p>
+  </main>
+  <script>
+    const SONG = `LAYERS
+
+The room is a dark green hush
+I feel the beat through the floor
+Your voice arrives like a ribbon
+Thin gold, asking for more
+
+Keys in the other doorway
+A chord that does not hurry
+We stack the night until it sings
+Beat, breath, wire, word —
+
+Hold the downbeat, let it open
+Every layer finds a room
+We are only sound together
+Until the silence blooms`;
+
+    const START = `LAYERS
+
+The room is a dark green hush
+I feel the beat through the floor
+`;
+
+    const field = document.getElementById("field");
+    const hint = document.getElementById("hint");
+    let shown = START.length;
+    let cueTimer = 0;
+
+    field.value = START;
+    field.setSelectionRange(shown, shown);
+
+    function cueBand() {
+      try {
+        new BroadcastChannel("layers-stems").postMessage("play");
+      } catch {
+        /* ignore */
+      }
+    }
+
+    function reveal() {
+      if (shown >= SONG.length) return;
+      shown += 1;
+      field.value = SONG.slice(0, shown);
+      field.setSelectionRange(shown, shown);
+      if (shown >= SONG.length) hint.textContent = "The song is complete.";
+    }
+
+    field.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (["Shift", "Control", "Alt", "Meta", "CapsLock", "Escape"].includes(e.key)) return;
+      e.preventDefault();
+      reveal();
+      if (!cueTimer) cueTimer = setTimeout(cueBand, 1600);
+    });
+    field.addEventListener("beforeinput", (e) => e.preventDefault());
+    field.addEventListener("paste", (e) => e.preventDefault());
+    field.addEventListener("drop", (e) => e.preventDefault());
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        field.focus();
+        field.setSelectionRange(shown, shown);
+      }
+    });
+    field.focus();
+  </script>
+</body>
+</html>

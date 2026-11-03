@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The scene</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1210'/%3E%3Cpath d='M8 16h16' stroke='%233ee0c2' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: Syne, Segoe UI, system-ui, sans-serif;
+      background: #0b1210;
+      color: #e8f1ee;
+      display: grid;
+      place-items: center;
+    }
+    main {
+      width: min(36rem, calc(100vw - 2.5rem));
+      display: grid;
+      gap: 1.5rem;
+    }
+    .kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: #7d938c;
+      font-weight: 600;
+    }
+    p {
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: #c5d4ce;
+      max-width: 22rem;
+    }
+    nav { display: grid; gap: 0.55rem; }
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.05rem 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 12px;
+      transition: transform 0.2s ease;
+    }
+    a:hover { transform: translateX(4px); }
+    a strong { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.04em; }
+    a span { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; }
+    .instruments { background: #171d26; }
+    .vocal { background: #24151b; }
+    .beat { background: #10241f; }
+    .lyrics { background: #ece4d6; color: #241e1a; }
+    button {
+      justify-self: start;
+      border: 0;
+      border-radius: 999px;
+      background: #e8f1ee;
+      color: #0b1210;
+      font: 700 0.85rem/1 Syne, sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.2rem;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.06); }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="kicker">Demo</p>
+    <p>Write in Lyrics. When the song begins, jump toward the sound.</p>
+    <nav>
+      <a class="instruments" href="instruments/"><strong>Instruments</strong><span>01</span></a>
+      <a class="vocal" href="vocal/"><strong>Vocal</strong><span>02</span></a>
+      <a class="beat" href="beat/"><strong>Beat</strong><span>03</span></a>
+      <a class="lyrics" href="lyrics/"><strong>Lyrics</strong><span>Text</span></a>
+    </nav>
+    <button type="button" id="start">Start the scene</button>
+  </main>
+  <script>
+    document.getElementById("start").addEventListener("click", () => {
+      const players = ["instruments/", "vocal/", "beat/"].map((href) => window.open(href, "_blank"));
+      const lyrics = window.open("lyrics/", "_blank");
+
+      const kick = () => {
+        players.forEach((win) => {
+          try {
+            if (win.playStem) win.playStem();
+            else win.document.getElementById("audio")?.play();
+          } catch {
+            /* blocked by autoplay or a unique file:// origin */
+          }
+        });
+      };
+
+      setTimeout(kick, 2600);
+      setTimeout(kick, 4300);
+      lyrics?.focus();
+    });
+  </script>
+</body>
+</html>

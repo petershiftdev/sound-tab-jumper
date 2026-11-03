@@ -1,0 +1,12 @@
+# Store archives are rebuilt from 01/ and firefox/
+*.zip
+
+# Design sources
+*.psd
+
+__pycache__/
+*.pyc
+
+Thumbs.db
+Desktop.ini
+.DS_Store

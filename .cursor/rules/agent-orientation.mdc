@@ -1,0 +1,145 @@
+---
+description: Agent map of this repo — consult first, then PROJECT.md, then code. Update in the same turn when the project or a design reason changes.
+alwaysApply: true
+---
+
+# Agent orientation map
+
+This file is the agent’s working map of the **codebase, behavior, and why it is that way**. It is not the identity/store source of truth.
+
+Use the **Why** section when talking with the user about design (“why no permissions?”, “why return to the start tab?”). If a reason here is wrong or outdated, fix it in the same turn as the code.
+
+## Lookup order (mandatory)
+
+1. **This file** — where to look, how jump/cycle works, design reasons, what not to pack.
+2. **`PROJECT.md` / `PROJECT-ru.md`** — only if the task needs names, email, version, listing copy, shortcut, ZIP name, publish status, graphics folders. Prefer `PROJECT-ru.md` when the user writes in Russian.
+3. **Named files below** — open those, do not browse the whole repo first.
+4. **Search the repo** — only if this map and those files are silent.
+
+Do not start a task by grepping or listing the tree unless the map has no pointer.
+
+`sites/` is a **local sandbox**, not part of the product. Do not open or change it unless the user asks to use or hook it up.
+
+## Keep this map fresh
+
+Update **this file in the same turn** when folders, entry files, jump/cycle logic, permissions, commands, locale keys, ZIP contents, gotchas, **or a design reason** change. Stale map is worse than a short map.
+
+Do **not** copy listing text, publisher name, version, or store URLs here — those live in `PROJECT.md`. If a fact here disagrees with `PROJECT.md`, `PROJECT.md` wins for identity; then fix this map.
+
+No changelogs. Each Why entry is the **current** reason, not history.
+
+## Product (behavior, not marketing)
+
+MV3 toolbar extension. Click the action or `Ctrl+Shift+S` (`Cmd+Shift+S` on Mac, command `jump-to-sound-tab`) → activate the next tab with `tab.audible === true`, focusing its window. No popup, no content scripts, no options page, no network, no storage. Manifest has **no** `permissions` array.
+
+Chrome (`01/`) uses a service worker. Firefox (`firefox/`) uses a non-persistent event page (`background.scripts`). Cycle logic is the same.
+
+## Layout
+
+| Path | What it is |
+| --- | --- |
+| `01/` | **Chrome extension.** Load unpacked this folder. Chrome ZIP root = contents of `01/` only. |
+| `01/background.js` | Chrome runtime. Service worker: cycle state + jump. Uses `chrome.*`. |
+| `01/manifest.json` | MV3, `default_locale` `en`, action + command, icons, no permissions, `service_worker`. |
+| `firefox/` | **Firefox extension.** Temporary load / AMO ZIP root = contents of `firefox/` only. |
+| `firefox/background.js` | Firefox runtime. Event page: same cycle + jump. Uses `browser.*`. |
+| `firefox/manifest.json` | MV3, `background.scripts`, gecko id, `data_collection_permissions: none`, no permissions. |
+| `01/_locales/{en,ru,de,es,fr,pt_BR,uk,zh_CN}/messages.json` and the same folders under `firefox/_locales/` | UI strings. Keys and the `message` text must stay in sync across locales **and** across both packages. Firefox `description` fields may name Firefox; users never see them. |
+| `01/icons/` | 16/32/48/128 PNG. Regenerated via `store/render_icons.py`. Copy into `firefox/icons/` after regenerating. |
+| `store/` | Store copy and publish docs. **Not in either ZIP.** |
+| `store/PUBLISH.md` | Chrome Web Store publish checklist. |
+| `store/PUBLISH-firefox.md` | Firefox Add-ons (AMO) publish checklist. |
+| `Instructions/` | Step-by-step publish how-tos (Russian). **Not in either ZIP.** |
+| `store/listing-<locale>.md` | Chrome Web Store long listing copy. Locales: `en`, `ru`, `de`, `es`, `fr`, `pt_BR`, `uk`, `zh_CN`. |
+| `store/listing-firefox-<locale>.md` | AMO listing copy. Same locale codes. |
+| `store/privacy-practices.md` | Chrome dashboard Privacy answers (must match code: no permissions, no data). |
+| `store/distribution.md` | Chrome Public / Free / all regions / test notes for reviewers. |
+| `store/privacy-policy.html` | Hosted policy source (covers Chrome and Firefox). Live HTTPS URL is in `PROJECT.md`. |
+| `store/how-to-add-locale.md` | Adding another locale. Keep `default_locale` `en`. Update **both** packages. |
+| `PROJECT.md`, `PROJECT-ru.md` | Identity/store facts. Same facts, two languages. **Not in either ZIP.** |
+| `.cursor/rules/` | Agent rules. **Not in either ZIP.** |
+| `sites/` | Optional sandbox for many audible tabs at once. **Not the product, not in either ZIP.** Touch only if the user asks. |
+
+## Task → open these
+
+| Task | Open |
+| --- | --- |
+| Jump / cycle / shortcut / toolbar click (Chrome) | `01/background.js`, then `01/manifest.json` `commands` |
+| Jump / cycle / shortcut / toolbar click (Firefox) | `firefox/background.js`, then `firefox/manifest.json` `commands` |
+| Name, tooltip, short description, locale | both `01/_locales/*/messages.json` and `firefox/_locales/*/messages.json`, then both `PROJECT*.md`, then listing files if store copy |
+| Permissions / privacy claims | both manifests, `store/privacy-practices.md`, Firefox `data_collection_permissions` in `firefox/manifest.json` |
+| Pack Chrome ZIP / load unpacked | `store/PUBLISH.md` (PowerShell `tar` from `01/`). Never pack `store/`, `sites/`, `Instructions/`, `PROJECT*.md`, `.cursor/`, `firefox/` |
+| Pack Firefox ZIP / temporary load | `store/PUBLISH-firefox.md` (PowerShell `tar` from `firefox/`). Never pack `store/`, `sites/`, `Instructions/`, `PROJECT*.md`, `.cursor/`, `01/` |
+| Fill dashboard after ZIP upload | `Instructions/chrome-web-store-after-zip.md` (Chrome); `store/PUBLISH-firefox.md` (AMO) |
+| Host privacy policy on GitHub Pages | `Instructions/github-pages-privacy-policy.md`, workflow `.github/workflows/pages.yml` |
+| Icons | `01/icons/`, `store/render_icons.py`, then copy into `firefox/icons/` |
+| New language | `store/how-to-add-locale.md` |
+| Multi-tab sound sandbox | `sites/` — **only when the user asks to use it** |
+
+## Cycle (easy to get wrong)
+
+State is **in-memory on the background** (`cycleTabIds`, `cycleIndex`, `originTabId`). Chrome may kill the service worker; Firefox may unload the event page. The next jump starts a new cycle. That is expected.
+
+On a **new** cycle from the current tab:
+
+1. Query all tabs. Collect ids where `audible` and id ≠ origin.
+2. If none → no-op (stay put).
+3. Cycle list = those sound tabs **plus origin at the end**.
+4. Each invocation advances to the next **still-existing** tab, `windows.update` focused + `tabs.update` active.
+5. When the activated tab is origin → `resetCycle()` (home, then next shortcut starts fresh).
+6. Closed/missing tabs are skipped. If nothing in the list can be activated → reset and rebuild **once**.
+
+`action.onClicked` already receives the current tab. The **command** path must `tabs.query({ active: true, lastFocusedWindow: true })` — do not assume a tab argument.
+
+## Why (talk about these with the user)
+
+**Jump only, never control media.** The product is “take me to the sound,” not a mixer. Muting, pausing, or injecting into players would need host access or extra UI, widen the privacy story, and fight the store’s single-purpose rule. Listing copy states this on purpose.
+
+**No `permissions` array, especially not `tabs`.** Finding `audible` and activating a tab work with the default extension APIs in Chrome and Firefox. `tabs` would unlock URLs, titles, and favicons — data this extension does not need and the policy says it does not read. Adding it later means rewriting Privacy answers, the policy, and the listing. Do not add it “just in case.”
+
+**Trust the browser’s `audible` flag, not page scraping.** The speaker icon on the tab *is* the signal users already understand. Content scripts would need broad host permissions, still miss Web Audio / cross-origin iframes / some DRM players, and would read page content. That contradicts “we do not read web pages.”
+
+**No popup, options page, or `chrome.storage` / `browser.storage`.** There is nothing to configure that is worth a UI. Persisting tab ids would be storing browsing-related data and would have to be disclosed. The cycle is a gesture, not a session to restore.
+
+**In-memory cycle on the background is enough.** MV3 has no persistent background page. If the worker or event page is killed, the next press starts a new cycle from the *current* tab — usually what you want anyway. Surviving that with storage would be complexity without a user-visible win.
+
+**Origin tab is appended, then the cycle resets.** You typically start from the tab you were working on (often silent), hop through every other audible tab, land back home, and the next press rebuilds from wherever you are. An endless loop of only sound tabs would strand you away from the starting place. This is documented in the listing and in reviewer test instructions.
+
+**Skip the origin even if it is audible.** If you are already on a sound tab, “next” means *another* tab. A one-tab cycle of yourself would look like a broken shortcut. If you are the only audible tab, the action is a no-op — no toast, no error (there is no UI to show one).
+
+**Focus the window, not only the tab.** Sound often lives in another browser window. `tabs.update({ active: true })` alone would switch the tab inside a background window and the user would think nothing happened.
+
+**Command listener queries `lastFocusedWindow`.** `action.onClicked` is given the current tab; `commands.onCommand` is not. `currentWindow` can be the wrong window when several are open. Match the user’s focused window.
+
+**Rebuild once if the whole cycle is dead.** Tabs close while you cycle. Skipping missing ids is enough most of the time; if every id is gone, one rebuild from the current tab avoids a stuck empty list without looping forever.
+
+**Suggested shortcut is Ctrl+Shift+S.** Mnemonic for “sound.” The browser may already use it, and the user can remap it (Chrome: `chrome://extensions/shortcuts`; Firefox: about:addons → Manage Extension Shortcuts). Collision is a browser/user issue, not a bug in `background.js`.
+
+**`default_locale` stays `en`; `ru`, `de`, `es`, `fr`, `pt_BR`, `uk`, and `zh_CN` are shipped extras.** English is the store fallback. Adding a language means a new `_locales/*` folder with the same keys in **both** `01/` and `firefox/` — do not flip `default_locale` unless English stops being the fallback. Chrome’s Latin American Spanish UI falls back to `es`. The store language Español (Latinoamérica) is filled separately with the same Spanish listing.
+
+**Repo root is not the extension.** `01/` and `firefox/` exist so load-unpacked / temporary-load and the store ZIP are the same tree for each browser. Docs, rules, identity files, the other browser’s package, and the sandbox must never ship. Reviewers should see only `manifest.json` + background + locales + icons.
+
+**Chrome and Firefox are separate packages, not one dual-browser ZIP.** Chrome rejects `browser_specific_settings` as unused but, more importantly, Chrome needs `service_worker` and Firefox needs `background.scripts` (event page). Keep them in different folders so each store ZIP is valid.
+
+**Firefox uses an event page, not a service worker.** Firefox MV3 supports `scripts` as a non-persistent background from 109. Service workers need 121+ and are weaker on Android. The same jump code runs in an event page. Listeners stay at top level.
+
+**Firefox add-on ID and `data_collection_permissions` live in the Firefox manifest only.** AMO signing requires a gecko id. New AMO listings must declare data collection; this product collects nothing, so `required: ["none"]`. Do not copy those keys into the Chrome manifest.
+
+**Firefox is desktop-only until Android is asked for.** Omitting `gecko_android` keeps the listing off Firefox for Android. Toolbar + multi-window focus is a desktop product; do not add Android compatibility without checking that surface.
+
+**Privacy policy is hosted on GitHub Pages, not inside the ZIP.** The store requires a public HTTPS URL. `store/privacy-policy.html` is the source; `.github/workflows/pages.yml` publishes that file alone. The live URL is in `PROJECT.md`. The same URL covers Chrome and Firefox, with a language switcher on the page.
+
+**Free, public, all regions, non-trader.** Personal free utility, not a commercial listing. Trader status is an account setting; do not switch it unless the user says the project became a business.
+
+**Publisher display name is PeterShift.** Store/legal identity. Do not invent a different one unless the user changes it (`project-facts` rule).
+
+**`sites/` is a sandbox, not a demo product.** It can open several looping stems so you can feel the cycle locally. Autoplay and `file://` isolation often break it. Do not treat harness failures as extension bugs. Do not pack it. Do not develop it until the user asks to hook it up.
+
+## Gotchas
+
+- `extensionDescription` ≤ 132 characters (Chrome limit; keep Firefox the same).
+- Chrome `es_419` is not a separate folder. Extension strings come from `es`. Paste `store/listing-es.md` into the Español (Latinoamérica) store language too.
+- Privacy dashboard text in `store/privacy-practices.md` must match the Chrome manifest: no extra permissions, no user data, no remote code — until the code actually changes.
+- Firefox AMO data disclosure must stay `none` until the code actually collects something.
+- Icons: 32 and 48 are drawn 3× then scaled down so the glyph stays readable; 16 is pixel-hinted (`store/render_icons.py`). After regenerating, copy into `firefox/icons/`.
+- Do not put `firefox/` inside the Chrome ZIP, and do not put `01/` inside the Firefox ZIP.

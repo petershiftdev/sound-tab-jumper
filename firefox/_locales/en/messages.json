@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Find Tab Playing Sound",
+    "description": "The extension name shown in Firefox and on addons.mozilla.org."
+  },
+  "extensionDescription": {
+    "message": "Find which tab is playing audio and switch to it. Click or shortcut to cycle sound tabs.",
+    "description": "Short description. Keep at or under 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "Go to the tab playing sound",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Go to the next tab playing sound",
+    "description": "Keyboard shortcut description in about:addons Manage Extension Shortcuts."
+  }
+}

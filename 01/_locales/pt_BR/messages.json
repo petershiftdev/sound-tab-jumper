@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Encontrar a aba com som",
+    "description": "The extension name shown in Chrome and the Web Store."
+  },
+  "extensionDescription": {
+    "message": "Encontra a aba que está tocando áudio e muda para ela. Clique ou atalho para percorrer as abas com som.",
+    "description": "Short description. Chrome limit: 132 characters."
+  },
+  "actionDefaultTitle": {
+    "message": "Ir para a aba com som",
+    "description": "Toolbar button tooltip."
+  },
+  "commandJumpToSoundTab": {
+    "message": "Ir para a próxima aba com som",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  }
+}
