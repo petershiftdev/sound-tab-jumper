@@ -60,7 +60,7 @@ Screenshot ideas (no padding, square corners):
 
 **Privacy policy URL:**
 ```
-https://sites.google.com/view/find-tab-playing-sound
+https://petershiftdev.github.io/sound-tab-jumper/
 ```
 
 **Data collection:** none (already declared in the manifest)

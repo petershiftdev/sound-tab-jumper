@@ -3,7 +3,7 @@
 Source of truth for names, contact, listing copy, and current package facts.
 Russian copy: `PROJECT-ru.md`. If any of this changes, update **both** files in the same change.
 
-**Last updated:** 3 November 2026 (public contact email)
+**Last updated:** 4 November 2026 (privacy policy URL)
 
 ---
 
@@ -69,7 +69,7 @@ Use the same address in the dashboard **Contact email** field.
 | Item URL | https://chromewebstore.google.com/detail/find-tab-playing-sound/djhgnhefakcclbpcciijegaaflkmaknd |
 | Item ID | `djhgnhefakcclbpcciijegaaflkmaknd` |
 | Homepage / Support / Official URL | none |
-| Privacy policy URL | https://sites.google.com/view/find-tab-playing-sound (source: `store/privacy-policy.html`) |
+| Privacy policy URL | https://petershiftdev.github.io/sound-tab-jumper/ (source: `store/privacy-policy.html`) |
 
 Dashboard copy: Privacy → `store/privacy-practices.md`; Distribution / test instructions → `store/distribution.md`; publish steps → `store/PUBLISH.md`. After ZIP: `Instructions/chrome-web-store-after-zip.md`. Host policy: `Instructions/github-pages-privacy-policy.md`.
 
@@ -86,7 +86,7 @@ Dashboard copy: Privacy → `store/privacy-practices.md`; Distribution / test in
 | Add-on ID | `@find-tab-playing-sound` |
 | Minimum Firefox | 109.0 (desktop; Android not listed) |
 | Data collection | `none` (`browser_specific_settings.gecko.data_collection_permissions`) |
-| Privacy policy URL | https://sites.google.com/view/find-tab-playing-sound (source: `store/privacy-policy.html`) |
+| Privacy policy URL | https://petershiftdev.github.io/sound-tab-jumper/ (source: `store/privacy-policy.html`) |
 
 Listing copy: `store/listing-firefox-<locale>.md` for the locales above. Publish steps: `store/PUBLISH-firefox.md`.
 

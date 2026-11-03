@@ -72,7 +72,7 @@ The extension runs only local code from the installed package (background.js). I
 Вставьте публичный HTTPS-адрес:
 
 ```
-https://sites.google.com/view/find-tab-playing-sound
+https://petershiftdev.github.io/sound-tab-jumper/
 ```
 
 Файл для публикации: [privacy-policy.html](privacy-policy.html).  

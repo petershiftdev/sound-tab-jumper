@@ -60,7 +60,7 @@ Le module complémentaire ne demande aucune autorisation Firefox supplémentaire
 
 **URL политики конфиденциальности:**
 ```
-https://sites.google.com/view/find-tab-playing-sound
+https://petershiftdev.github.io/sound-tab-jumper/
 ```
 
 **Сбор данных:** нет (уже указано в манифесте)
