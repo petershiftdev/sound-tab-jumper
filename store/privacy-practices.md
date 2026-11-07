@@ -75,10 +75,10 @@ The extension runs only local code from the installed package (background.js). I
 https://petershiftdev.github.io/sound-tab-jumper/
 ```
 
-Этот адрес без якоря и есть поле магазина. Страница откроет язык браузера и покажет только его. Прямые адреса языков: `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#uk`, `#zh_CN`.
+Этот адрес без якоря и есть поле магазина. Страница откроет язык браузера и покажет только его. Прямые адреса языков: `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#ro`, `#uk`, `#zh_CN`.
 
 Файл для публикации: [privacy-policy.html](privacy-policy.html).  
-Тексты: [privacy-policy-en.md](privacy-policy-en.md), [privacy-policy-ru.md](privacy-policy-ru.md).
+Тексты: [privacy-policy-en.md](privacy-policy-en.md), [privacy-policy-ru.md](privacy-policy-ru.md), [privacy-policy-ro.md](privacy-policy-ro.md).
 
 Проверьте URL в режиме инкогнито до отправки на ревью.
 

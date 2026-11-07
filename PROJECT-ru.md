@@ -3,7 +3,7 @@
 Источник правды по именам, контактам, текстам витрины и текущему пакету.
 Если что-то из этого меняется, обновите этот файл и английский `PROJECT.md` в том же изменении.
 
-**Дата обновления:** 4 ноября 2026 (адреса политики конфиденциальности)
+**Дата обновления:** 7 ноября 2026 (румынская политика конфиденциальности)
 
 ---
 
@@ -69,7 +69,7 @@
 | URL карточки | https://chromewebstore.google.com/detail/find-tab-playing-sound/djhgnhefakcclbpcciijegaaflkmaknd |
 | ID расширения | `djhgnhefakcclbpcciijegaaflkmaknd` |
 | Homepage / Support / Official URL | нет |
-| URL политики конфиденциальности | https://petershiftdev.github.io/sound-tab-jumper/ (источник: `store/privacy-policy.html`). Отдельный адрес на язык: `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#uk`, `#zh_CN`. Адрес без якоря открывает язык браузера. |
+| URL политики конфиденциальности | https://petershiftdev.github.io/sound-tab-jumper/ (источник: `store/privacy-policy.html`). Отдельный адрес на язык: `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#ro`, `#uk`, `#zh_CN`. Адрес без якоря открывает язык браузера. |
 
 Тексты дашборда: Privacy → `store/privacy-practices.md`; Distribution / инструкция для ревьюера → `store/distribution.md`; шаги публикации → `store/PUBLISH.md`. После ZIP: `Instructions/chrome-web-store-after-zip.md`. Политика на GitHub Pages: `Instructions/github-pages-privacy-policy.md`.
 
@@ -86,7 +86,7 @@
 | ID дополнения | `@find-tab-playing-sound` |
 | Минимальный Firefox | 109.0 (только десктоп; Android не выкладываем) |
 | Сбор данных | `none` (`browser_specific_settings.gecko.data_collection_permissions`) |
-| URL политики конфиденциальности | https://petershiftdev.github.io/sound-tab-jumper/ (источник: `store/privacy-policy.html`). Отдельный адрес на язык: `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#uk`, `#zh_CN`. Адрес без якоря открывает язык браузера. |
+| URL политики конфиденциальности | https://petershiftdev.github.io/sound-tab-jumper/ (источник: `store/privacy-policy.html`). Отдельный адрес на язык: `#en`, `#ru`, `#de`, `#es`, `#fr`, `#pt_BR`, `#ro`, `#uk`, `#zh_CN`. Адрес без якоря открывает язык браузера. |
 
 Тексты витрины: `store/listing-firefox-<локаль>.md` для локалей выше. Шаги публикации: `store/PUBLISH-firefox.md`.
 
